@@ -11,8 +11,8 @@
 struct Args{
     int picHeight= 288;
     int picWidth = 352;
-    const char* srcFile =  "/media/soccor.yuv";
-    const char* dstFile =  "./output.264";
+    const char* srcFile =  "../res/soccor.yuv";
+    const char* dstFile =  "../res/output.264";
 };
 
 void InitParam(SEncParamBase& param, const int picWidth, const int picHeight){
@@ -58,9 +58,9 @@ void SetupPic(unsigned char* data, SFrameBSInfo& info, SSourcePicture& pic, cons
 
 void Encode(ISVCEncoder* encoder, const Args& args){
     
-    const char* file_name = "/media/soccor.yuv";
+    const char* file_name = args.srcFile;
     sshsu::BufferReader buf(args.picWidth, args.picHeight, file_name);
-    FILE* outFd = fopen("./output.264", "w+");
+    FILE* outFd = fopen(args.dstFile, "w+");
     assert(outFd!= nullptr);
     
     SFrameBSInfo info;
@@ -104,7 +104,7 @@ void Encode(ISVCEncoder* encoder, const Args& args){
             std::cout<<"videoFrameTypeskip for rate control"<<std::endl;
         }
     }
-    std::cout << "total bytes: " << total_bytes <<std::endl;
+    std::cout << "save frame to file: \"" <<args.dstFile << "\", total bytes: " << total_bytes <<std::endl;
     fflush(outFd);
     fclose(outFd);
 }
