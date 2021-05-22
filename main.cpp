@@ -75,7 +75,7 @@ void Encode(ISVCEncoder* encoder, const Args& args){
     int total_bytes = 0;
     while(buf.ReadFrame()){
         if(frame_num == 100){
-
+            std::cout<<"change bitrate to 100kb/s"<<std::endl;
             encParamExt.sSpatialLayers[0].iSpatialBitrate =  100 * 1000;
             encParamExt.sSpatialLayers[0].iMaxSpatialBitrate =  100 * 1000;
             encoder->SetOption(ENCODER_OPTION_SVC_ENCODE_PARAM_EXT, &encParamExt);
